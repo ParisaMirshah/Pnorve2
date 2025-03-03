@@ -1,0 +1,44 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sum Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Sum Calculator</h1>
+	<form action="/sum" method="post">
+		<input type="number" name="num1" placeholder="Enter first number">
+		<input type="number" name="num2" placeholder="Enter second number">
+		<button type="submit">Calculate Sum</button>
+	</form>
+	<div id="result"></div>
+
+	<script>
+		const form = document.querySelector('form');
+		const resultDiv = document.querySelector('#result');
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const num1 = document.querySelector('input[name="num1"]').value;
+			const num2 = document.querySelector('input[name="num2"]').value;
+
+			fetch('/sum', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: `num1=${num1}&num2=${num2}`,
+			})
+			.then((res) => res.text())
+			.then((data) => {
+				resultDiv.innerText = data;
+			})
+			.catch((err) => console.error(err));
+		});
+	</script>
+</body>
+</html>
