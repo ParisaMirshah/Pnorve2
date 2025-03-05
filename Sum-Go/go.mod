@@ -1,3 +1,3 @@
 module github.com/ParisaMirshah/Pnorve2/src/Sum-Go
 
-go 1.24.0
+go 1.18
